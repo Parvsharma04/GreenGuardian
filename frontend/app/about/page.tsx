@@ -180,53 +180,18 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex  justify-center gap-8">
           {[
             {
-              name: "Alex Rivera",
+              name: "Parv Sharma",
               role: "Founder & CEO",
-              bio: "Environmental scientist with 15+ years of experience in waste management and sustainability initiatives.",
+              bio: "Software Engineer",
               image:
-                "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            },
-            {
-              name: "Samantha Chen",
-              role: "CTO",
-              bio: "Tech innovator with a background in IoT and environmental monitoring systems.",
-              image:
-                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            },
-            {
-              name: "Marcus Johnson",
-              role: "Head of Community",
-              bio: "Community organizer who has led successful environmental campaigns across multiple cities.",
-              image:
-                "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            },
-            {
-              name: "Priya Patel",
-              role: "Environmental Director",
-              bio: "Environmental engineer specializing in waste reduction strategies and circular economy principles.",
-              image:
-                "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            },
-            {
-              name: "David Kim",
-              role: "Partnerships Manager",
-              bio: "Business development expert focused on creating sustainable partnerships with eco-conscious brands.",
-              image:
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            },
-            {
-              name: "Olivia Martinez",
-              role: "UX Designer",
-              bio: "Designer passionate about creating intuitive interfaces that make environmental action accessible to everyone.",
-              image:
-                "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                "https://avatars.githubusercontent.com/u/115033639?s=400&u=fd37344c078b8cdf3e6a7eeef581dfc69846b3da&v=4",
             },
           ].map((member, index) => (
             <Card key={index}>
-              <CardContent className="pt-6">
+              <CardContent className="pt-6 w-auto">
                 <div className="flex flex-col items-center text-center">
                   <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
                     <img
