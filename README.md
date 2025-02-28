@@ -2,7 +2,7 @@
 
 
 
-Green Guardian is a tech-driven initiative to enhance sanitation and hygiene in India by incentivizing proper waste disposal, tracking garbage collection, and allowing users to report environmental hazards.
+Green Guardian is a tech-driven initiative to enhance sanitation and hygiene in India by incentivizing proper waste disposal, tracking garbage collection, and allowing users to report environmental hazards.🚮🌱
 ## 🚀 Features
 
 - ♻️ **Recycling Rewards** – Earn redeemable tokens for proper waste disposal.
@@ -20,6 +20,16 @@ Green Guardian is a tech-driven initiative to enhance sanitation and hygiene in 
 - **Payments:** Razorpay for transactions
 - **Hosting:** Vercel (Frontend), AWS / DigitalOcean (Backend)
 
+## 🤝 Contributing
+
+We welcome contributions! To contribute:
+1. **Fork** this repository 🍴
+2. **Star** the repository ⭐ (Don't forget!)
+3. Create a new branch: `git checkout -b feature-name`
+4. Commit your changes: `git commit -m 'Add new feature'`
+5. Push to the branch: `git push origin feature-name`
+6. Open a Pull Request 🚀
+
 ## 🔧 Installation
 
 ### Prerequisites
@@ -32,8 +42,8 @@ Ensure you have the following installed:
 ### Clone the Repository
 
 ```sh
- git clone https://github.com/yourusername/green-guardian.git
- cd green-guardian
+ git clone https://github.com/Parvsharma04/GreenGuardian.git
+ cd GreenGuardian
 ```
 
 ### Setup Environment Variables
@@ -60,7 +70,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
-
+<!--
 ## 🛠️ Deployment
 
 ### Deploy on Vercel
@@ -81,7 +91,7 @@ pm install -g pm2
 pm start
 pm2 start server.js --name green-guardian
 ```
-
+-->
 ## 📜 API Endpoints
 
 | Method | Endpoint        | Description                  |
@@ -108,4 +118,3 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 🌟 **Join us in making a cleaner, greener India!** 🌿
-
