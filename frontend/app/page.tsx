@@ -35,7 +35,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-md px-6 dark:text-white text-[#288453] border-white hover:bg-white/10"
+                className="rounded-md px-6 dark:text-white text-[#288453] border-white hover:bg-white/10 hover:text-white"
               >
                 Learn More
               </Button>
@@ -190,7 +190,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-md px-6 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+                className="rounded-md px-6 border-primary-foreground text-[#248F59]  hover:bg-primary-foreground/10 hover:text-white"
               >
                 Learn More
               </Button>

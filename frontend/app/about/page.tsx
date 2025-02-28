@@ -258,7 +258,7 @@ export default function AboutPage() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-md px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 text-[#288453] dark:text-white"
+              className="rounded-md px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 text-[#288453] dark:text-white hover:text-white"
             >
               Contact Us
             </Button>
