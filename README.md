@@ -2,8 +2,7 @@
 
 
 
-Green Guardian is a tech-driven initiative to enhance sanitation and hygiene in India by incentivizing proper waste disposal, tracking garbage collection, and allowing users to report environmental hazards. The platform leverages **Next.js** for the frontend and **Node.js** for the backend.
-
+Green Guardian is a tech-driven initiative to enhance sanitation and hygiene in India by incentivizing proper waste disposal, tracking garbage collection, and allowing users to report environmental hazards.
 ## 🚀 Features
 
 - ♻️ **Recycling Rewards** – Earn redeemable tokens for proper waste disposal.
