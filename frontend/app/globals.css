@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 232, 248, 232;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 10, 25, 10;
+    --background-end-rgb: 10, 25, 10;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 120 40% 98%;
+    --foreground: 120 40% 10%;
+    --card: 120 40% 97%;
+    --card-foreground: 120 40% 15%;
+    --popover: 120 40% 98%;
+    --popover-foreground: 120 40% 10%;
+    --primary: 150 60% 35%;
+    --primary-foreground: 120 40% 98%;
+    --secondary: 120 30% 90%;
+    --secondary-foreground: 120 40% 15%;
+    --muted: 120 30% 85%;
+    --muted-foreground: 120 20% 40%;
+    --accent: 150 40% 80%;
+    --accent-foreground: 150 60% 25%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 120 30% 75%;
+    --input: 120 30% 75%;
+    --ring: 150 60% 35%;
+    --chart-1: 145 75% 40%;
+    --chart-2: 160 70% 35%;
+    --chart-3: 175 65% 30%;
+    --chart-4: 140 80% 45%;
+    --chart-5: 120 90% 50%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 120 40% 5%;
+    --foreground: 120 40% 90%;
+    --card: 120 40% 7%;
+    --card-foreground: 120 40% 95%;
+    --popover: 120 40% 7%;
+    --popover-foreground: 120 40% 90%;
+    --primary: 150 60% 50%;
+    --primary-foreground: 120 40% 98%;
+    --secondary: 120 30% 20%;
+    --secondary-foreground: 120 40% 90%;
+    --muted: 120 30% 15%;
+    --muted-foreground: 120 20% 50%;
+    --accent: 150 40% 25%;
+    --accent-foreground: 150 60% 85%;
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 120 30% 20%;
+    --input: 120 30% 20%;
+    --ring: 150 60% 50%;
+    --chart-1: 145 75% 50%;
+    --chart-2: 160 70% 45%;
+    --chart-3: 175 65% 40%;
+    --chart-4: 140 80% 55%;
+    --chart-5: 120 90% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
