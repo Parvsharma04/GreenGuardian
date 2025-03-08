@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-import { usePathname } from "next/navigation";
-import { Leaf, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Leaf, Menu, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -22,7 +22,10 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
+      <nav
+        className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
+        aria-label="Global"
+      >
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
             <Leaf className="h-8 w-8 text-primary" />
@@ -46,7 +49,9 @@ export default function Header() {
               href={item.href}
               className={cn(
                 "text-sm font-semibold leading-6 transition-colors hover:text-primary",
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
+                pathname === item.href
+                  ? "text-primary"
+                  : "text-muted-foreground"
               )}
             >
               {item.name}
@@ -63,14 +68,18 @@ export default function Header() {
           <ModeToggle />
         </div>
       </nav>
-      
+
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-background">
           <div className="fixed inset-0 flex">
             <div className="w-full">
               <div className="flex items-center justify-between p-4">
-                <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+                <Link
+                  href="/"
+                  className="-m-1.5 p-1.5 flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   <Leaf className="h-8 w-8 text-primary" />
                   <span className="font-bold text-xl">GreenGuardian</span>
                 </Link>
@@ -83,7 +92,7 @@ export default function Header() {
                   <X className="h-6 w-6" aria-hidden="true" />
                 </Button>
               </div>
-              <div className="mt-6 flow-root px-6">
+              <div className="mt-6 flow-root px-6 bg-current">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <Link
@@ -91,7 +100,9 @@ export default function Header() {
                       href={item.href}
                       className={cn(
                         "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7",
-                        pathname === item.href ? "text-primary" : "text-muted-foreground"
+                        pathname === item.href
+                          ? "text-primary"
+                          : "text-muted-foreground"
                       )}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -101,7 +112,9 @@ export default function Header() {
                 </div>
                 <div className="border-t py-6 flex flex-col gap-4">
                   <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full">Log in</Button>
+                    <Button variant="ghost" className="w-full">
+                      Log in
+                    </Button>
                   </Link>
                   <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
                     <Button className="w-full">Sign up</Button>
