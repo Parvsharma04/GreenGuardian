@@ -12,17 +12,52 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/context/Auth";
+import axios from "axios";
 import { Leaf } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const auth = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    if (auth.token) {
+      router.push("/dashboard");
+    }
+  });
+
+  async function login() {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL}/api/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
+      if (response.data) {
+        auth.setToken(response.data.token);
+        toast.success("Welcome back Guardian 🍃");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.error || "Login failed. Please try again.";
+        toast.error(errorMessage);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would authenticate the user
+    login();
     console.log("Login attempt with:", { email, password });
   };
 

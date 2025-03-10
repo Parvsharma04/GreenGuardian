@@ -12,26 +12,46 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/context/Auth";
 import axios from "axios";
 import { Leaf } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function SignupPage() {
+  const auth = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    if (auth.token) {
+      router.push("/dashboard");
+    }
+  });
+
   async function signUp() {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL}/api/auth/signup`,
-      {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL}/api/auth/signup`,
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+      if (response.data) {
+        auth.setToken(response.data.token);
+        toast.success("Welcome to GreenGuardian 🍃");
       }
-    );
-    if (response.status === 200)
-      toast("Welcome GreenGuardian🍃", {
-        description: "Redirecting",
-      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.error || "Signup failed. Please try again.";
+        toast.error(errorMessage);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+    }
   }
 
   const [formData, setFormData] = useState({
@@ -49,7 +69,6 @@ export default function SignupPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     signUp();
-    console.log("Registration attempt with:", formData);
   };
 
   function comparePassword() {
