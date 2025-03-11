@@ -3,57 +3,58 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
+  id            String         @id @default(uuid())
+  email         String         @unique
   password      String
   name          String
-  points        Int       @default(0)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  points        Int            @default(0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   recyclingLogs RecyclingLog[]
   reports       Report[]
 }
 
 model RecyclingLog {
-  id          String    @id @default(uuid())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id])
-  type        String    // e.g., "plastic", "paper", "glass"
-  weight      Float     // in kg
-  points      Int
-  location    String
-  createdAt   DateTime  @default(now())
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String // e.g., "plastic", "paper", "glass"
+  weight    Float // in kg
+  points    Int
+  location  String
+  createdAt DateTime @default(now())
 }
 
 model Report {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
-  type        String    // e.g., "illegal_dumping", "sanitation", "pollution"
+  user        User     @relation(fields: [userId], references: [id])
+  type        String // e.g., "illegal_dumping", "sanitation", "pollution"
   description String
   location    String
-  status      String    @default("pending") // pending, in_progress, resolved
-  severity    String    // low, medium, high, critical
-  images      String[]  // URLs to uploaded images
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  status      String   @default("pending") // pending, in_progress, resolved
+  severity    String // low, medium, high, critical
+  images      String[] // URLs to uploaded images
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Facility {
-  id          String    @id @default(uuid())
-  name        String
-  type        String    // recycling_center, waste_disposal, composting
-  location    String
-  address     String
-  hours       String
+  id                String   @id @default(uuid())
+  name              String
+  type              String // recycling_center, waste_disposal, composting
+  location          String
+  address           String
+  hours             String
   acceptedMaterials String[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Reward {
@@ -61,8 +62,8 @@ model Reward {
   title       String
   description String
   points      Int
-  type        String    // coupon, voucher, service
-  value       Float     // monetary value or discount percentage
+  type        String // coupon, voucher, service
+  value       Float // monetary value or discount percentage
   expiresAt   DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
