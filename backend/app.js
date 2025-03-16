@@ -7,6 +7,7 @@ const recyclingRoutes = require("./routes/recycling");
 const reportRoutes = require("./routes/reports");
 const facilityRoutes = require("./routes/facilities");
 const rewardRoutes = require("./routes/rewards");
+const userRoutes = require("./routes/users");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/recycling", recyclingRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/facilities", facilityRoutes);

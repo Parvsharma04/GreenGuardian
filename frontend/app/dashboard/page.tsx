@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { UserProvider, useUser } from "@/context/User";
 import { cn } from "@/lib/utils";
 import {
   AlertTriangle,
@@ -20,7 +21,46 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function DashboardPage() {
+function DashboardPage() {
+  const user = useUser();
+
+  console.log(user.recycleStats);
+  function co2() {
+    if (!user?.recycleStats?.weightByType) {
+      return { totalCO2Saved: 0, treesSaved: 0, co2Breakdown: {} };
+    }
+
+    // CO₂ saved per kg for each material (kg CO₂-eq)
+    const CO2_SAVINGS = {
+      aluminum: 11, // 9-13 kg CO₂ saved per kg
+      plastic: 2.25, // 1.5-3 kg CO₂ saved per kg
+      paper: 1.75, // 1.5-2 kg CO₂ saved per kg
+      glass: 0.4, // 0.3-0.5 kg CO₂ saved per kg
+      steel: 1.75, // 1.5-2 kg CO₂ saved per kg
+    };
+
+    const TREE_CO2_ABSORPTION = 21; // kg CO₂ absorbed per tree per year
+
+    let totalCO2Saved = 0;
+    const co2Breakdown: { [key in keyof typeof CO2_SAVINGS]?: number } = {};
+
+    // Calculate CO₂ saved for each material
+    for (const [material, weight] of Object.entries(
+      user.recycleStats.weightByType
+    ) as [keyof typeof CO2_SAVINGS, number][]) {
+      if (CO2_SAVINGS[material]) {
+        const saved = weight * CO2_SAVINGS[material];
+        co2Breakdown[material] = saved;
+        totalCO2Saved += saved;
+      }
+    }
+
+    // Calculate equivalent trees saved
+    const treesSaved = totalCO2Saved / TREE_CO2_ABSORPTION;
+
+    return { totalCO2Saved, treesSaved, co2Breakdown };
+  }
+
   return (
     <div className="container mx-auto py-10 px-4 max-w-7xl">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -39,9 +79,9 @@ export default function DashboardPage() {
             <CardDescription>Lifetime earnings</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">1,250</div>
+            <div className="text-3xl font-bold">{user.profile?.points}</div>
             <div className="text-xs text-muted-foreground mt-1">
-              +125 points this month
+              +{user.recycleStats?.monthlyStats.points} points this month
             </div>
           </CardContent>
         </Card>
@@ -51,9 +91,11 @@ export default function DashboardPage() {
             <CardDescription>Total contributions</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">78</div>
+            <div className="text-3xl font-bold">
+              {user.recycleStats?.totalRecycled}
+            </div>
             <div className="text-xs text-muted-foreground mt-1">
-              12.5 kg of waste recycled
+              {user.recycleStats?.totalWeight} kg of waste recycled
             </div>
           </CardContent>
         </Card>
@@ -63,9 +105,11 @@ export default function DashboardPage() {
             <CardDescription>Environmental issues reported</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">15</div>
+            <div className="text-3xl font-bold">
+              {user.reportStats?.totalReports.toString()}
+            </div>
             <div className="text-xs text-muted-foreground mt-1">
-              12 issues resolved
+              {user.reportStats?.resolvedReports} issues resolved
             </div>
           </CardContent>
         </Card>
@@ -75,9 +119,11 @@ export default function DashboardPage() {
             <CardDescription>Environmental impact</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">35 kg</div>
+            <div className="text-3xl font-bold">
+              {co2().totalCO2Saved.toFixed(1)} kg
+            </div>
             <div className="text-xs text-muted-foreground mt-1">
-              Equivalent to planting 2 trees
+              Equivalent to planting {co2().treesSaved.toFixed(1)} trees
             </div>
           </CardContent>
         </Card>
@@ -362,5 +408,13 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <UserProvider>
+      <DashboardPage />
+    </UserProvider>
   );
 }

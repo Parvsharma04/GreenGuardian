@@ -1,22 +1,23 @@
-const express = require('express');
-const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { body, validationResult } = require('express-validator');
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { body, validationResult } = require("express-validator");
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
 // Signup
-router.post('/signup',
+router.post(
+  "/signup",
   [
-    body('email').isEmail(),
-    body('password').isLength({ min: 6 }),
-    body('name').notEmpty()
+    body("email").isEmail(),
+    body("password").isLength({ min: 6 }),
+    body("name").notEmpty(),
   ],
   async (req, res) => {
     try {
-      console.log(req.body)
+      console.log(req.body);
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -27,7 +28,7 @@ router.post('/signup',
       // Check if user exists
       const existingUser = await prisma.user.findUnique({ where: { email } });
       if (existingUser) {
-        return res.status(400).json({ error: 'User already exists' });
+        return res.status(400).json({ error: "User already exists" });
       }
 
       // Hash password
@@ -38,29 +39,26 @@ router.post('/signup',
         data: {
           email,
           password: hashedPassword,
-          name
-        }
+          name,
+        },
       });
 
       // Generate token
-      const token = jwt.sign(
-        { userId: user.id },
-        process.env.JWT_SECRET,
-        { expiresIn: '24h' }
-      );
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
 
       res.status(201).json({ token });
     } catch (error) {
-      res.status(500).json({ error: 'Error creating user' });
+      res.status(500).json({ error: "Error creating user" });
     }
-});
+  }
+);
 
 // Login
-router.post('/login',
-  [
-    body('email').isEmail(),
-    body('password').exists()
-  ],
+router.post(
+  "/login",
+  [body("email").isEmail(), body("password").exists()],
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -73,26 +71,25 @@ router.post('/login',
       // Find user
       const user = await prisma.user.findUnique({ where: { email } });
       if (!user) {
-        return res.status(400).json({ error: 'Invalid credentials' });
+        return res.status(400).json({ error: "Invalid credentials" });
       }
 
       // Check password
       const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword) {
-        return res.status(400).json({ error: 'Invalid credentials' });
+        return res.status(400).json({ error: "Invalid credentials" });
       }
 
       // Generate token
-      const token = jwt.sign(
-        { userId: user.id },
-        process.env.JWT_SECRET,
-        { expiresIn: '24h' }
-      );
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
 
       res.json({ token });
     } catch (error) {
-      res.status(500).json({ error: 'Error logging in' });
+      res.status(500).json({ error: "Error logging in" });
     }
-});
+  }
+);
 
 module.exports = router;
